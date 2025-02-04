@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanjeevani</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            animation: fadeIn 1s;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #inputContainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #inputField {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #inputField:focus {
+            outline: none;
+            box-shadow: 0 0 5px #fff, 0 0 10px #007BFF;
+        }
+
+        #submitButton {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            margin-left: -5px; /* Overlap with input field */
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #submitButton:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(28, 11, 11, 0.9);
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #output.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #loading {
+            display: none;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            color: white;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #hitCounter {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sanjeevani</h1>
+    <div id="inputContainer">
+        <input type="text" id="inputField" placeholder="Enter the name of the medicine..." />
+        <button id="submitButton">Submit</button>
+    </div>
+    <div id="loading">Searching...</div>
+    <div id="output"></div>
+    <footer>
+        Site under testing state ~ Aditya Shukla ~ Under Development 
+        <div id="hitCounter">Hits: <span id="hitCount">0</span></div>
+    </footer>
+
+    <script>
+        let hitCount = localStorage.getItem('hitCount') ? parseInt(localStorage.getItem('hitCount')) : 0;
+        hitCount++;
+        localStorage.setItem('hitCount', hitCount);
+        document.getElementById('hitCount').innerText = hitCount;
+
+        document.getElementById('submitButton').addEventListener('click', function() {
+            const content = document.getElementById('inputField').value;
+            sendRequest(content);
+        });
+
+        function sendRequest(content) {
+            // Show loading text
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('output').innerText = ''; // Clear previous output
+            document.getElementById('output').classList.remove('show'); // Hide output initially
+
+            axios.post('/api/chat', { content })
+                .then(response => {
+                    // Display the formatted response
+                    document.getElementById('output').innerText = response.data.formattedResponse;
+                    document.getElementById('output').classList.add('show'); // Show output with animation
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('output').innerText = 'Error: ' + error.message;
+                    document.getElementById('output').classList.add('show'); // Show error message with animation
+                })
+                .finally(() => {
+                    // Hide loading text
+                    document.getElementById('loading').style.display = 'none';
+                });
+        }
+    </script>
+
+</body>
+</html>

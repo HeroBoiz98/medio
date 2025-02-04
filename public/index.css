@@ -1,0 +1,47 @@
+.carousel {
+    width: 100%;
+    overflow: hidden;
+}
+.carousel img {
+    width: 100%;
+    height: auto;
+}
+@media screen and (min-width: 768px) {
+    .carousel img.mobile-image {
+        display: none;
+    }
+    .carousel img.desktop-image {
+        display: block;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 100%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .carousel img.desktop-image {
+        display: none;
+    }
+}
+.profile-button {
+background-color: #1975d85a; /* Button color */
+border: none;
+border-radius: 50%; /* Circular button */
+padding: 5px; /* Space around the icon */
+cursor: pointer;
+width: 40px; /* Width of the button */
+height: 40px; /* Height of the button */
+display: flex;
+justify-content: center;
+align-items: center;
+transition: background-color 0.3s;
+text-decoration: none; /* Remove underline from link */
+}
+
+.profile-button:hover {
+background-color: #0056b3; /* Darker color on hover */
+}
+
+.profile-icon {
+width: 24px; /* Width of the icon */
+height: 24px; /* Height of the icon */
+}

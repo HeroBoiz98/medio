@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="user.css">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="https://imgs.search.brave.com/3nDpVY8Ry4BCqU5oRQFgx_YZM-rVK4w7Q00aJGP1XjE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGZwcy5nZy9wZnBz/LzIzMDEtZGVmYXVs/dC0yLnBuZw" alt="Profile Picture" class="profile-picture">
+                <h2 id="usernameDisplay"></h2>
+                <p id="emailDisplay"></p>
+            </div>
+            <div class="profile-details">
+                <h3>Account Details</h3>
+                <ul>
+                    <li><strong>Username:</strong> <span id="usernameDetail"></span></li>
+                    <li><strong>First Name:</strong> <span id="firstNameDisplay"></span> <input type="text" id="firstName" placeholder="First Name" style="display:none;"></li>
+                    <li><strong>Last Name:</strong> <span id="lastNameDisplay"></span> <input type="text" id="lastName" placeholder="Last Name" style="display:none;"></li>
+                    <li><strong>Date of Birth:</strong> <span id="dobDisplay"></span> <input type="date" id="dob" style="display:none;"></li>
+                    <li><strong>Gender:</strong> <span id="genderDisplay"></span> 
+                        <select id="gender" style="display:none;">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </li>
+                    <li><strong>Weight:</strong> <span id="weightDisplay"></span> <input type="number" id="weight" placeholder="Weight (kg)" style="display:none;"></li>
+                </ul>
+            </div>
+            <button id="editButton" class="edit-button">Edit</button>
+            <button id="saveButton" class="save-button" style="display:none;">Save</button>
+            <button id="logoutButton" class="logout-button">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve username and email from local storage
+        const username = localStorage.getItem('username');
+        const email = localStorage.getItem('email'); // Assuming you store email during login/signup
+
+        // Display username and email
+        if (username) {
+            document.getElementById('usernameDisplay').textContent = username;
+            document.getElementById('usernameDetail').textContent = username;
+        } else {
+            window.location.href = 'index.html'; // Redirect to index.html if not logged in
+        }
+
+        if (email) {
+            document.getElementById('emailDisplay').textContent = email;
+        }
+
+        // Function to toggle edit mode
+        function toggleEditMode(isEditing) {
+            document.getElementById('firstName').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('lastName').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('dob').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('gender').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('weight').style.display = isEditing ? 'block' : 'none';
+
+            document.getElementById('firstNameDisplay').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('lastNameDisplay').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('dobDisplay').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('genderDisplay').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('weightDisplay').style.display = isEditing ? 'none' : 'inline';
+
+            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('saveButton').style.display = isEditing ? 'inline' : 'none';
+        }
+
+        // Load existing data into display fields
+        function loadProfileData() {
+            const firstName = localStorage.getItem('firstName') || '';
+            const lastName = localStorage.getItem('lastName') || '';
+            const dob = localStorage.getItem('dob') || '';
+            const gender = localStorage.getItem('gender') || 'male';
+            const weight = localStorage.getItem('weight') || '';
+
+            document.getElementById('firstNameDisplay').textContent = firstName;
+            document.getElementById('lastNameDisplay').textContent = lastName;
+            document.getElementById('dobDisplay').textContent = dob;
+            document.getElementById('genderDisplay').textContent = gender;
+            document.getElementById('weightDisplay').textContent = weight;
+
+            // Set input values
+            document.getElementById('firstName').value = firstName;
+            document.getElementById('lastName').value = lastName;
+            document.getElementById('dob').value = dob;
+            document.getElementById('gender').value = gender;
+            document.getElementById('weight').value = weight;
+        }
+
+        // Save functionality
+        document.getElementById('saveButton').addEventListener('click', async function() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const weight = document.getElementById('weight').value;
+
+            const response = await fetch('http://localhost:5000/updateProfile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, firstName, lastName, dob, gender, weight })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+
+            // Update display fields
+            document.getElementById('firstNameDisplay').textContent = firstName;
+            document.getElementById('lastNameDisplay').textContent = lastName;
+            document.getElementById('dobDisplay').textContent = dob;
+            document.getElementById('genderDisplay').textContent = gender;
+            document.getElementById('weightDisplay').textContent = weight;
+
+            // Switch back to display mode
+            toggleEditMode(false);
+
+            // Save updated data to local storage
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+            localStorage.setItem('dob', dob);
+            localStorage.setItem('gender', gender);
+            localStorage.setItem('weight', weight);
+        });
+
+        // Edit button functionality
+        document.getElementById('editButton').addEventListener('click', function() {
+            toggleEditMode(true);
+        });
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Clear all user-related data from local storage
+            localStorage.clear(); // This will remove all items from local storage
+            window.location.href = 'index.html'; // Redirect to index.html
+        });
+
+        // Load profile data on page load
+        loadProfileData();
+    </script>
+</body>
+</html>
