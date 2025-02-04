@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call a Doctor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #search {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Call a Doctor</h1>
+        <input type="text" id="search" placeholder="Search for a doctor..." onkeyup="filterDoctors()">
+        <div id="doctor-list">
+            <!-- Doctor cards will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        const doctors = [
+            { id: 1, name: "Dr. John Doe", specialty: "Cardiology", phone: "123-456-7890", code: "DOC001" },
+            { id: 2, name: "Dr. Jane Smith", specialty: "Dermatology", phone: "987-654-3210", code: "DOC002" },
+            { id: 3, name: "Dr. Emily Johnson", specialty: "Pediatrics", phone: "555-123-4567", code: "DOC003" },
+            { id: 4, name: "Dr. Michael Brown", specialty: "Orthopedics", phone: "555-987-6543", code: "DOC004" },
+            { id: 5, name: "Dr. Sarah Davis", specialty: "Neurology", phone: "555-555-5555", code: "DOC005" }
+        ];
+
+        function displayDoctors(doctorsToDisplay) {
+            const doctorList = document.getElementById('doctor-list');
+            doctorList.innerHTML = '';
+
+            doctorsToDisplay.forEach(doctor => {
+                const doctorCard = document.createElement('div');
+                doctorCard.className = 'doctor-card';
+                doctorCard.innerHTML = `
+                    <h2>${doctor.name}</h2>
+                    <p>Specialty: ${doctor.specialty}</p>
+                    <button onclick="callDoctor('${doctor.code}')">Call</button>
+                `;
+                doctorList.appendChild(doctorCard);
+            });
+        }
+
+        function callDoctor(code) {
+            // Redirects to the video-call page with the specific doctor's code (room number)
+            window.location.href = `video-call.html?room=${code}`;
+        }
+
+        function filterDoctors() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const filteredDoctors = doctors.filter(doctor => 
+                doctor.name.toLowerCase().includes(searchInput) || 
+                doctor.specialty.toLowerCase().includes(searchInput)
+            );
+            displayDoctors(filteredDoctors);
+        }
+
+        // Initial display of doctors
+        displayDoctors(doctors);
+    </script>
+</body>
+</html>
