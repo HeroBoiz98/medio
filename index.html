@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <Style>/* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+            backdrop-filter: blur(15px); /* Increased blur effect for glassmorphism */
+            padding: 10px 20px; /* Padding for the navbar */
+            display: flex; /* Use flexbox for alignment */
+            justify-content: space-between; /* Space between items */
+            align-items: center; /* Center items vertically */
+            border-radius: 10px; /* Rounded corners for the navbar */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        
+        .navbar-container {
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            width: 100%; /* Full width */
+        }
+        
+        .logo {
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            flex: 1; /* Allow logo to take available space */
+        }
+        
+        .company-name {
+            font-size: 24px; /* Font size for company name */
+            color: #333; /* Darker text color */
+            margin-right: 10px; /* Space between name and icon */
+            font-weight: bold; /* Make the company name bold */
+        }
+        
+        .upgrade-button {
+            background: linear-gradient(135deg, rgba(53, 182, 214, 0.863), rgba(149, 148, 226, 0.329)); /* Classy glassy gradient */ /* Classy glassy gradient */
+            color: #333; /* Darker text color for button */
+            padding: 10px 35px; /* Padding for the button */
+            border: none; /* Remove border */
+            border-radius: 20px; /* Rounded corners */
+            text-decoration: none; /* Remove underline */
+            font-size: 16px; /* Font size */
+            margin: 0 auto; /* Center the button */
+            transition: background 0.3s, transform 0.3s; /* Smooth transition */
+            font-weight: bold; /* Make button text bold */
+        }
+        
+        .upgrade-button:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2)); /* Lighter gradient on hover */
+            transform: scale(1.05); /* Slightly enlarge button on hover */
+        }
+        
+        .profile-container {
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            margin-left: auto; /* Push profile container to the right */
+        }
+        
+        .profile-button {
+            margin-right: 15px; /* Space between profile icon and username */
+        }
+        
+        .profile-icon {
+            width: 40px; /* Width of profile icon */
+            height: 40px; /* Height of profile icon */
+            border-radius: 50%; /* Circular profile icon */
+        }
+        
+        .username {
+            color: #333; /* Darker text color for username */
+            font-size: 16px; /* Font size for username */
+            margin-left: 10px; /* Space between profile icon and username */
+            font-weight: bold; /* Make username bold */
+        }
+        
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column; /* Stack items vertically */
+                padding: 10px; /* Adjust padding */
+            }
+        
+            .navbar-container {
+                justify-content: center; /* Center items in the navbar */
+                width: 100%; /* Full width */
+                margin-bottom: 10px; /* Space below the navbar container */
+            }
+        
+            .company-name {
+                font-size: 20px; /* Slightly smaller font size for mobile */
+            }
+        
+            .upgrade-button {
+                margin-left: 0; /* Remove left margin */
+                margin-top: 10px; /* Add top margin for spacing */
+            }
+        
+            .profile-container {
+                margin-left: 0; /* Remove left margin */
+                margin-top: 10px; /* Add top margin for spacing */
+            }
+        
+            .username {
+                font-size: 14px; /* Slightly smaller font size for mobile */
+            }
+        
+            .profile-icon {
+                width: 35px; /* Smaller profile icon */
+                height: 35px; /* Smaller profile icon */
+            }
+        }</Style>
+    <title>Sanjeevani</title>
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="index.html">
+                    <b><span class="company-name">Sanjeevani</span></b>
+                    <i class="fas fa-home"></i>
+                </a>
+                
+            </div>
+            <a href="pricing.html" class="upgrade-button">Upgrade</a>
+            <div class="profile-container">
+                
+                <a href="profile.html" class="profile-button" id="profileButton">
+                    <img src="https://imgs.search.brave.com/Jb-n3_7DvBrxuS1BTZgPT5FxcMhIbLyN_GLLnJZW1iU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMtMDAuaWNvbmR1/Y2suY29tL2Fzc2V0/cy4wMC91c2VyLWlj/b24tMjI3eDI1Ni1j/eXJiOXBpNS5wbmc" alt="Profile" class="profile-icon">
+                </a>
+                <span id="usernameDisplay" class="username"></span> <!-- Placeholder for username -->
+           <!-- New Upgrade Button -->
+            </div>
+        </div>
+      
+    </nav>
+
+    <div class="carousel">
+        
+        <img class="mobile-image" src="med_scan.png" alt="Mobile Poster 1">
+        <img class="desktop-image" src="med_scan.png" alt="Desktop Poster 1">
+    </div>
+
+    <div class="brand-section">
+        <h2>Sanjeevani</h2>
+        <div class="brand-logos">
+            <a href="scan_med.html"><img src="med_scan.png" alt="Brand 1"></a>
+            <a href="shop_med.html"><img src="med_shop.png" alt="Brand 2"></a>
+            <a href="call_doc.html"><img src="call_doc.png" alt="Brand 3"></a>
+            <a href="user_data.html"><img src="account.png" alt="Brand 3"></a>
+        </div>
+    </div>
+
+    <div class="interactive-cards">
+        <div class="card">
+            <h2>Scan Med</h2>
+            <button onclick="redirectToPage('scan_med.html')">Go</button>
+        </div>
+        <div class="card">
+            <h2>Shop Meds</h2>
+            <button onclick="redirectToPage('shop_med.html')">Go</button>
+        </div>
+        <div class="card">
+            <h2>Call Doctor?</h2>
+            <button onclick="redirectToPage('call_doc.html')">Go</button>
+        </div>
+        <div class="card">
+            <h2>Health Data</h2>
+            <button onclick="redirectToPage('user_data.html')">Go</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToPage(nextPage) {
+            window.location.href = nextPage; 
+        }
+
+        // Retrieve username from local storage
+        const username = localStorage.getItem('username');
+
+        // Display username
+        if (username) {
+            document.getElementById('usernameDisplay').textContent = username;
+
+            // Fetch subscription data from the server
+            fetch(`http://localhost:5000/subscription/${username}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const subscriptions = data.subscriptions;
+                    if (subscriptions.length > 0) {
+                        const latestSubscription = subscriptions[subscriptions.length - 1]; // Get the latest subscription
+                        const { status, date, type } = latestSubscription;
+                        document.getElementById('subscriptionStatus').textContent = `Subscription: ${status} (${type})`;
+
+                        // Calculate remaining days until expiration
+                        const subscriptionDate = new Date(date);
+                        let remainingDays = 0;
+
+                        if (type === 'monthly') {
+                            subscriptionDate.setMonth(subscriptionDate.getMonth() + 1);
+                        } else if (type === 'annual') {
+                            subscriptionDate.setFullYear(subscriptionDate.getFullYear() + 1);
+                        }
+
+                        remainingDays = Math.ceil((subscriptionDate - new Date()) / (1000 * 60 * 60 * 24));
+
+                        if (remainingDays > 0) {
+                            document.getElementById('subscriptionExpiry').textContent = `Expires in: ${remainingDays} days`;
+                        } else {
+                            document.getElementById('subscriptionExpiry').textContent = 'Subscription expired';
+                        }
+                    } else {
+                        document.getElementById('subscriptionStatus').textContent = 'No active subscription';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching subscription data:', error);
+                    document.getElementById('subscriptionStatus').textContent = 'Error fetching subscription data';
+                });
+        } else {
+            document.getElementById('subscriptionStatus').textContent = 'No active subscription';
+        }
+
+        // Redirect to user.html if logged in
+        document.getElementById('profileButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            if (username) {
+                window.location.href = 'user.html'; // Redirect to user.html if logged in
+            } else {
+                window.location.href = 'profile.html'; // Redirect to profile.html if not logged in
+            }
+        });
+    </script>
+</body>
+</html>
